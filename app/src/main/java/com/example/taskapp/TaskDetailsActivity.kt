@@ -187,7 +187,7 @@ class TaskDetailsActivity: AppCompatActivity() {
         time: String
     ) {
         val dbRef = FirebaseDatabase.getInstance().getReference("Tasks").child(id)
-        val taskInfo = TaskModel(id, name, description , date, time)
+        val taskInfo = TaskModel(id, name, description , date, time, completed = false)
         dbRef.setValue(taskInfo)
     }
 

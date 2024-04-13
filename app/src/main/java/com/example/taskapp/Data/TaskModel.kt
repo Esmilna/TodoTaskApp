@@ -5,5 +5,9 @@ data class TaskModel(
     var taskName: String? = null,
     var taskDescription: String? = null,
     var taskDate: String? = null,
-    var taskTime: String? = null
+    var taskTime: String? = null,
+    var completed: Boolean = false,
 )
+
+
+

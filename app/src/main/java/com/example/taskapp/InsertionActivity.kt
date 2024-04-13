@@ -67,7 +67,7 @@ class InsertionActivity: AppCompatActivity() {
 
         val taskId = dbRef.push().key!!
 
-        val task = TaskModel(taskId, taskName, taskDescription, taskDate, taskTime)
+        val task = TaskModel(taskId, taskName, taskDescription, taskDate, taskTime, completed = false)
 
         dbRef.child(taskId).setValue(task)
             .addOnCompleteListener {
