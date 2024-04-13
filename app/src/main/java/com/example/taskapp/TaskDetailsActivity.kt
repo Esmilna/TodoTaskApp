@@ -26,6 +26,7 @@ class TaskDetailsActivity: AppCompatActivity() {
     private lateinit var btnDelete: Button
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_details)
@@ -36,7 +37,11 @@ class TaskDetailsActivity: AppCompatActivity() {
         btnUpdate.setOnClickListener {
             openUpdateDialog(
                 intent.getStringExtra("taskId").toString(),
-                intent.getStringExtra("taskName").toString()
+                intent.getStringExtra("taskName").toString(),
+                intent.getStringExtra("taskDescription").toString(),
+                intent.getStringExtra("taskDate").toString(),
+                intent.getStringExtra("taskTime").toString()
+
             )
         }
 
@@ -45,6 +50,8 @@ class TaskDetailsActivity: AppCompatActivity() {
                 intent.getStringExtra("taskId").toString()
             )
         }
+
+
     }
 
     private fun initView() {
@@ -84,9 +91,13 @@ class TaskDetailsActivity: AppCompatActivity() {
         }
     }
 
+
     private fun openUpdateDialog(
         taskId: String,
-        taskName: String
+        taskName: String,
+        taskDescription: String,
+        date: String,
+        time: String
     ) {
         val mDialog = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -99,18 +110,25 @@ class TaskDetailsActivity: AppCompatActivity() {
         val etDate = mDialogView.findViewById<EditText>(R.id.Date)
         val etTime = mDialogView.findViewById<EditText>(R.id.Time)
 
-        val btnUpdateData = mDialogView.findViewById<Button>(R.id.btnUpdateData)
-
-        etTaskName.setText(intent.getStringExtra("taskName").toString())
-        etTaskDescription.setText(intent.getStringExtra("taskDescription").toString())
-        etDate.setText(intent.getStringExtra("Date").toString())
-        etTime.setText(intent.getStringExtra("Time").toString())
+        etTaskName.setText(taskName)
+        etTaskDescription.setText(taskDescription)
+        etDate.setText(date)
+        etTime.setText(time)
 
         mDialog.setTitle("Updating $taskName Record")
 
         val alertDialog = mDialog.create()
         alertDialog.show()
 
+        etDate.setOnClickListener {
+            OnClickDate(etDate)
+        }
+
+        etTime.setOnClickListener {
+            OnClickTime(etTime)
+        }
+
+        val btnUpdateData = mDialogView.findViewById<Button>(R.id.btnUpdateData)
         btnUpdateData.setOnClickListener {
             updateTaskData(
                 taskId,
@@ -122,17 +140,15 @@ class TaskDetailsActivity: AppCompatActivity() {
 
             Toast.makeText(applicationContext, "Task Data Updated", Toast.LENGTH_LONG).show()
 
-            //we are setting updated data to our textviews
-            tvTaskName.text = etTaskName.text.toString()
-            tvTaskDescription.text = etTaskDescription.text.toString()
-            tvDate.text = etDate.text.toString()
-            tvTime.text = etTime.text.toString()
-
+            // Opcionalmente, puedes cerrar el diálogo después de actualizar los datos
             alertDialog.dismiss()
         }
     }
-    fun OnClickDate(v: View?){
-        val Date = findViewById<EditText>(R.id.Date)
+
+
+
+    fun OnClickDate(etDate: EditText){
+
 
         val year = selectedCalendar.get(Calendar.YEAR)
         val month = selectedCalendar.get(Calendar.MONTH)
@@ -140,16 +156,14 @@ class TaskDetailsActivity: AppCompatActivity() {
 
         val listener = DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
             selectedCalendar.set(y,m,d)
-            Date.setText("$y-$m-$d")
+            val formattedDate = "$y-$m-$d"
+            etDate.setText(formattedDate)
         }
-        val datePickerDialog = DatePickerDialog(this, listener, year, month, dayOfMonth)
-        datePickerDialog.setOnDismissListener{
-
-        }
-        datePickerDialog.show()
+        DatePickerDialog(this, listener, year, month, dayOfMonth).show()
     }
-    fun OnClickTime(v: View?){
-        val Time = findViewById<EditText>(R.id.Time)
+
+    fun OnClickTime(etTime: EditText){
+
 
         val hour = selectedCalendar.get(Calendar.HOUR_OF_DAY)
         val minute = selectedCalendar.get(Calendar.MINUTE)
@@ -157,17 +171,12 @@ class TaskDetailsActivity: AppCompatActivity() {
         val listener = TimePickerDialog.OnTimeSetListener { timePicker, h, m ->
             selectedCalendar.set(Calendar.HOUR_OF_DAY, h)
             selectedCalendar.set(Calendar.MINUTE, m)
-            Time.setText("$h:$m")
-
+            val formattedTime = String.format("%02d:%02d", h, m)
+            etTime.setText(formattedTime)
         }
-
-        val timePickerDialog = TimePickerDialog(this, listener, hour, minute, true)
-        timePickerDialog.setOnDismissListener {
-
-        }
-
-        timePickerDialog.show()
+        TimePickerDialog(this, listener, hour, minute, true).show()
     }
+
 
 
     private fun updateTaskData(
