@@ -33,7 +33,7 @@
         android:clickable="true"
         android:maxLines="1"
         android:hint="Enter Date"
-        android:inputType="date" />
+        android:inputType="textPersonName" />
     <EditText
         android:id="@+id/Time"
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
         android:clickable="true"
         android:maxLines="1"
         android:hint="Enter Time"
-        android:inputType="time" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnUpdateData"

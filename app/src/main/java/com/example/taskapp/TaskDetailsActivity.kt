@@ -62,8 +62,8 @@ class TaskDetailsActivity: AppCompatActivity() {
         tvtaskId.text = intent.getStringExtra("taskId")
         tvTaskName.text = intent.getStringExtra("taskName")
         tvTaskDescription.text = intent.getStringExtra("taskDescription")
-        tvDate.text = intent.getStringExtra("date")
-        tvTime.text = intent.getStringExtra("time")
+        tvDate.text = intent.getStringExtra("taskDate")
+        tvTime.text = intent.getStringExtra("taskTime")
 
     }
 
