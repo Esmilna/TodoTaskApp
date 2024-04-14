@@ -10,7 +10,7 @@ import com.example.taskapp.Data.TaskModel
 import com.example.taskapp.R
 import com.google.firebase.database.FirebaseDatabase
 
-class TaskAdapter (private val taskList: ArrayList<TaskModel>) :
+class TaskAdapter(private val taskList: List<TaskModel>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
@@ -61,7 +61,7 @@ class TaskAdapter (private val taskList: ArrayList<TaskModel>) :
     }
 
     private fun updateTaskCompletedStatus(task: TaskModel) {
-        // Actualizar el estado de la tarea en tu base de datos (Firebase, por ejemplo)
+        // Actualizar el estado de la tarea en tu base de datos (Firebase)
         val dbRef = FirebaseDatabase.getInstance().getReference("Tasks").child(task.taskId.toString())
         dbRef.child("completed").setValue(task.completed)
     }

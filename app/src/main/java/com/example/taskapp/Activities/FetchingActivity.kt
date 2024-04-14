@@ -1,4 +1,4 @@
-package com.example.taskapp
+package com.example.taskapp.Activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskapp.Adapter.TaskAdapter
 import com.example.taskapp.Data.TaskModel
+import com.example.taskapp.Data.Utils.sortTasksByDueDate
+import com.example.taskapp.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -49,10 +51,14 @@ class FetchingActivity : AppCompatActivity() {
                 if (snapshot.exists()){
                     for (taskSnap in snapshot.children){
                         val tasksData = taskSnap.getValue(TaskModel::class.java)
-                        taskList.add(tasksData!!)
+                        taskList.add(tasksData!!)g
                     }
+                    taskList = sortTasksByDueDate(taskList)
+
+
                     val mAdapter = TaskAdapter(taskList)
                     rvTaskRecyclerView.adapter = mAdapter
+
 
                     mAdapter.setOnItemClickListener(object : TaskAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
@@ -81,4 +87,8 @@ class FetchingActivity : AppCompatActivity() {
 
         })
     }
+
+
 }
+
+

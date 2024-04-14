@@ -1,15 +1,17 @@
-package com.example.taskapp
+package com.example.taskapp.Activities
+
 
 import android.app.DatePickerDialog
+
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.taskapp.R
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var btnInsertData: Button
     private lateinit var btnFetchData: Button
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-
 
 
     }
