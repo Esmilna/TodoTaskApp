@@ -51,7 +51,7 @@ class FetchingActivity : AppCompatActivity() {
                 if (snapshot.exists()){
                     for (taskSnap in snapshot.children){
                         val tasksData = taskSnap.getValue(TaskModel::class.java)
-                        taskList.add(tasksData!!)g
+                        taskList.add(tasksData!!)
                     }
                     taskList = sortTasksByDueDate(taskList)
 
