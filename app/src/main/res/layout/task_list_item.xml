@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:layout_gravity="center"
+        android:layout_gravity="left"
         android:orientation="vertical">
 
         <LinearLayout

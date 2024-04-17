@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.util.Calendar
 
+
 class InsertionActivity: AppCompatActivity() {
 
     val selectedCalendar = Calendar.getInstance()
@@ -83,6 +84,8 @@ class InsertionActivity: AppCompatActivity() {
                 Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
             }
 
+
+
     }
     fun OnClickDate(v: View?){
         val Date = findViewById<EditText>(R.id.etDate)
@@ -121,5 +124,7 @@ class InsertionActivity: AppCompatActivity() {
 
         timePickerDialog.show()
     }
+
+
 
 }

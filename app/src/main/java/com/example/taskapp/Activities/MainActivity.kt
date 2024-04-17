@@ -8,8 +8,16 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.example.taskapp.Data.NotificationWorker
 import com.example.taskapp.R
+import com.google.android.datatransport.cct.internal.NetworkConnectionInfo
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btnInsertData: Button
@@ -39,6 +47,23 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val periodicWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
+            1, // Repetir cada día
+            TimeUnit.DAYS
+        )
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            "NotificationWorker",
+            ExistingPeriodicWorkPolicy.KEEP,
+            periodicWorkRequest
+        )
 
 
     }
