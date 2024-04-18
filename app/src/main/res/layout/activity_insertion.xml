@@ -8,8 +8,6 @@
     android:background="@color/secondary_color"
     tools:context=".Activities.InsertionActivity">
 
-
-
     <EditText
         android:id="@+id/etTaskName"
         android:layout_width="0dp"
@@ -22,7 +20,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <EditText
         android:id="@+id/etTaskDescription"

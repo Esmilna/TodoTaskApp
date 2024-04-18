@@ -18,16 +18,13 @@ import java.util.Calendar
 class TaskDetailsActivity: AppCompatActivity() {
     val selectedCalendar = Calendar.getInstance()
     private lateinit var tvtaskId: TextView
-    private lateinit var tvTaskName: TextView
-    private lateinit var tvTaskDescription: TextView
-    private lateinit var tvDate: TextView
-    private lateinit var tvTime: TextView
+    lateinit var tvTaskName: TextView
+    lateinit var tvTaskDescription: TextView
+    lateinit var tvDate: TextView
+    lateinit var tvTime: TextView
     private lateinit var btnUpdate: Button
     private lateinit var btnDelete: Button
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_details)
 
@@ -41,31 +38,24 @@ class TaskDetailsActivity: AppCompatActivity() {
                 intent.getStringExtra("taskDescription").toString(),
                 intent.getStringExtra("taskDate").toString(),
                 intent.getStringExtra("taskTime").toString()
-
             )
         }
-
         btnDelete.setOnClickListener {
             deleteRecord(
                 intent.getStringExtra("taskId").toString()
             )
         }
-
-
     }
-
     private fun initView() {
         tvtaskId = findViewById(R.id.tvTaskId)
         tvTaskName = findViewById(R.id.tvTaskName)
         tvTaskDescription = findViewById(R.id.tvTaskDescription)
         tvDate = findViewById(R.id.tvDate)
         tvTime = findViewById(R.id.tvTime)
-
         btnUpdate = findViewById(R.id.btnUpdate)
         btnDelete = findViewById(R.id.btnDelete)
     }
-
-    private fun setValuesToViews() {
+    fun setValuesToViews() {
         tvtaskId.text = intent.getStringExtra("taskId")
         tvTaskName.text = intent.getStringExtra("taskName")
         tvTaskDescription.text = intent.getStringExtra("taskDescription")
@@ -73,7 +63,6 @@ class TaskDetailsActivity: AppCompatActivity() {
         tvTime.text = intent.getStringExtra("taskTime")
 
     }
-
     private fun deleteRecord(
         id: String
     ){
@@ -90,8 +79,6 @@ class TaskDetailsActivity: AppCompatActivity() {
             Toast.makeText(this, "Deleting Err ${error.message}", Toast.LENGTH_LONG).show()
         }
     }
-
-
     private fun openUpdateDialog(
         taskId: String,
         taskName: String,
@@ -102,7 +89,6 @@ class TaskDetailsActivity: AppCompatActivity() {
         val mDialog = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val mDialogView = inflater.inflate(R.layout.update_dialog, null)
-
         mDialog.setView(mDialogView)
 
         val etTaskName = mDialogView.findViewById<EditText>(R.id.TaskName)
@@ -140,12 +126,9 @@ class TaskDetailsActivity: AppCompatActivity() {
 
             Toast.makeText(applicationContext, "Task Data Updated", Toast.LENGTH_LONG).show()
 
-            // Opcionalmente, puedes cerrar el diálogo después de actualizar los datos
             alertDialog.dismiss()
         }
     }
-
-
 
     fun OnClickDate(etDate: EditText){
 
@@ -161,7 +144,6 @@ class TaskDetailsActivity: AppCompatActivity() {
         }
         DatePickerDialog(this, listener, year, month, dayOfMonth).show()
     }
-
     fun OnClickTime(etTime: EditText){
 
 
@@ -176,9 +158,6 @@ class TaskDetailsActivity: AppCompatActivity() {
         }
         TimePickerDialog(this, listener, hour, minute, true).show()
     }
-
-
-
     private fun updateTaskData(
         id: String,
         name: String,

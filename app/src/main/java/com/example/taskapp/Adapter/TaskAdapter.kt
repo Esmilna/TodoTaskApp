@@ -46,7 +46,6 @@ class TaskAdapter(private val taskList: List<TaskModel>) :
     override fun getItemCount(): Int {
         return taskList.size
     }
-
     class ViewHolder(itemView: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
 
         val tvTaskName : TextView = itemView.findViewById(R.id.tvTaskName)
@@ -59,7 +58,6 @@ class TaskAdapter(private val taskList: List<TaskModel>) :
         }
 
     }
-
     private fun updateTaskCompletedStatus(task: TaskModel) {
         // Actualizar el estado de la tarea en tu base de datos (Firebase)
         val dbRef = FirebaseDatabase.getInstance().getReference("Tasks").child(task.taskId.toString())

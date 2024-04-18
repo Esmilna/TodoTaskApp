@@ -18,12 +18,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class FetchingActivity : AppCompatActivity() {
-    private lateinit var rvTaskRecyclerView: RecyclerView
+    lateinit var rvTaskRecyclerView: RecyclerView
     private lateinit var tvLoadingData: TextView
     private lateinit var taskList: ArrayList<TaskModel>
     private lateinit var dbRef: DatabaseReference
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fetching)
 
@@ -37,8 +37,7 @@ class FetchingActivity : AppCompatActivity() {
         getTasksData()
 
     }
-
-    private fun getTasksData() {
+    fun getTasksData() {
 
         rvTaskRecyclerView.visibility = View.GONE
         tvLoadingData.visibility = View.VISIBLE
@@ -55,10 +54,8 @@ class FetchingActivity : AppCompatActivity() {
                     }
                     taskList = sortTasksByDueDate(taskList)
 
-
                     val mAdapter = TaskAdapter(taskList)
                     rvTaskRecyclerView.adapter = mAdapter
-
 
                     mAdapter.setOnItemClickListener(object : TaskAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
@@ -73,14 +70,12 @@ class FetchingActivity : AppCompatActivity() {
                             intent.putExtra("taskTime", taskList[position].taskTime)
                             startActivity(intent)
                         }
-
                     })
 
                     rvTaskRecyclerView.visibility = View.VISIBLE
                     tvLoadingData.visibility = View.GONE
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }

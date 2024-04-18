@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/secondary_color"
     android:padding="10dp">
 
     <EditText
@@ -54,7 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Update Data" />
+        android:text="Update Data"
+        android:backgroundTint="@color/text_color"/>
 
 
 </LinearLayout>

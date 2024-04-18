@@ -18,15 +18,13 @@ import java.util.Calendar
 class InsertionActivity: AppCompatActivity() {
 
     val selectedCalendar = Calendar.getInstance()
-    private lateinit var etTaskName: EditText
-    private lateinit var etTaskDescription: EditText
-    private lateinit var etDate: EditText
-    private lateinit var etTime: EditText
+    lateinit var etTaskName: EditText
+    lateinit var etTaskDescription: EditText
+    lateinit var etDate: EditText
+    lateinit var etTime: EditText
     private lateinit var btnSaveData: Button
-
     private lateinit var dbRef: DatabaseReference
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insertion)
 
@@ -41,18 +39,13 @@ class InsertionActivity: AppCompatActivity() {
         btnSaveData.setOnClickListener {
             saveTaskData()
         }
-
-
     }
-
-    private fun saveTaskData() {
-
+    fun saveTaskData() {
         //getting values
         val taskName = etTaskName.text.toString()
         val taskDescription = etTaskDescription.text.toString()
         val taskDate = etDate.text.toString()
         val taskTime = etTime.text.toString()
-
         if (taskName.isEmpty()) {
             etTaskName.error = "Please enter name"
         }
@@ -65,27 +58,19 @@ class InsertionActivity: AppCompatActivity() {
         if (taskTime.isEmpty()) {
             etTime.error = "Please enter time"
         }
-
         val taskId = dbRef.push().key!!
-
         val task = TaskModel(taskId, taskName, taskDescription, taskDate, taskTime, completed = false)
-
         dbRef.child(taskId).setValue(task)
             .addOnCompleteListener {
                 Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
-
                 etTaskName.text.clear()
                 etTaskDescription.text.clear()
                 etDate.text.clear()
                 etTime.text.clear()
 
-
             }.addOnFailureListener { err ->
                 Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
             }
-
-
-
     }
     fun OnClickDate(v: View?){
         val Date = findViewById<EditText>(R.id.etDate)
@@ -98,7 +83,7 @@ class InsertionActivity: AppCompatActivity() {
             selectedCalendar.set(y,m,d)
             Date.setText("$y-$m-$d")
         }
-       val datePickerDialog = DatePickerDialog(this, listener, year, month, dayOfMonth)
+       val datePickerDialog = DatePickerDialog(this,listener, year, month, dayOfMonth)
            datePickerDialog.setOnDismissListener{
 
            }
@@ -116,12 +101,10 @@ class InsertionActivity: AppCompatActivity() {
             Time.setText("$h:$m")
 
         }
-
         val timePickerDialog = TimePickerDialog(this, listener, hour, minute, true)
         timePickerDialog.setOnDismissListener {
 
         }
-
         timePickerDialog.show()
     }
 
